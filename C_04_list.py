@@ -1,3 +1,30 @@
+def int_check(question):
+    """Checks users enter on integer more than / equal to 13"""
+
+    while True:
+        error = "Please enter an integer that is 1 or more."
+
+        response = input(question)
+
+        # check for infinite mode
+        if response == "":
+            return ""
+
+        try:
+            response =int(response)
+
+            #check that the number is more than / equal to 13
+            if response < 1:
+                print(error)
+
+            else:
+                return response
+
+        except ValueError:
+            print(error)
+
+
+
 def string_checker(question, valid_ans=('yes', 'no')):
 
  error = f"Please enter a valid option from the following list: {valid_ans}"
@@ -27,7 +54,32 @@ def string_checker(question, valid_ans=('yes', 'no')):
 
 quiz_list = ["easy", "medium", "hard", "diabolical", "xxx"]
 
-user_choice = string_checker("Choose: ", quiz_list)
-print("You Chose: ", user_choice)
-if user_choice == "xxx":
-    break
+user_choice = string_checker("Choose Level: ", quiz_list)
+print("You Choose:", user_choice)
+
+
+
+# Ask user for number of rounds / infinite mode
+num_rounds = int_check("How many rounds would you like? Push <enter> for infinite mode: ")
+# Initialise game variables
+mode = "regular"
+questions_asked = 0
+
+
+if num_rounds == "":
+    mode = "infinite"
+    num_rounds = 5
+
+
+# Game loop starts here
+while questions_asked < num_rounds:
+    questions_asked += 1
+
+    # Rounds heading
+    if mode == "infinite":
+        rounds_heading = f"\n♾️♾️♾️ Round {questions_asked} (Infinite Mode) ♾️♾️♾️"
+    else:
+        rounds_heading = f"\n💿💿💿 Round {questions_asked} of {num_rounds} 💿💿💿"
+
+    print(rounds_heading)
+    print()

@@ -1,4 +1,4 @@
-print("😝❤️LIII Welcome to my Amazeing math quiz :p ❤️")
+print("😝❤️HIII Welcome to my Amazeing math quiz :p ❤️")
 print()
 
 #functions go here
