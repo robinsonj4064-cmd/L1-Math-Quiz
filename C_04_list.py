@@ -1,4 +1,7 @@
-def int_check(question):
+import random
+
+
+def int_check(question, easy=None, medium=None, hard=None, diabolical=None, exit_code=None):
     """Checks users enter on integer more than / equal to 13"""
 
     while True:
@@ -64,6 +67,9 @@ num_rounds = int_check("How many rounds would you like? Push <enter> for infinit
 # Initialise game variables
 mode = "regular"
 questions_asked = 0
+questions_wrong = 0
+questions_correct = 0
+questions = 0
 
 
 if num_rounds == "":
@@ -75,6 +81,12 @@ if num_rounds == "":
 while questions_asked < num_rounds:
     questions_asked += 1
 
+    if user_choice == quiz_list:
+        questions = random.randint(1, 10)
+        print(questions)
+
+
+
     # Rounds heading
     if mode == "infinite":
         rounds_heading = f"\n♾️♾️♾️ Round {questions_asked} (Infinite Mode) ♾️♾️♾️"
@@ -83,3 +95,4 @@ while questions_asked < num_rounds:
 
     print(rounds_heading)
     print()
+
