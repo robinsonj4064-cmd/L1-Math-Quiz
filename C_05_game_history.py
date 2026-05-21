@@ -70,7 +70,7 @@ questions_asked = 0
 questions_wrong = 0
 questions_correct = 0
 questions = 0
-
+game_history = []
 
 if num_questions == "":
     mode = "infinite"
@@ -81,30 +81,49 @@ if num_questions == "":
 while questions_asked < num_questions:
     questions_asked += 1
 
-    # Rounds heading
-    if mode == "infinite":
-        questions_heading = f"\n♾️♾️♾️ Question {questions_asked} (Infinite Mode) ♾️♾️♾️"
-    else:
-        questions_heading = f"\n💿💿💿 Question {questions_asked} of {num_questions} 💿💿💿"
-
-    print(questions_heading)
-    print()
-
-    if user_choice == "easy":
-        # The easy questions 1-10
+    if user_choice == quiz_list:
         questions_int1 = random.randint(1, 10)
         questions_int2 = random.randint(1, 10)
+
         total = questions_int1 + questions_int2
-        print(f" {questions_int1} + {questions_int2} = {total}\t")
+        print(f" {questions_int1}\t + {questions_int2}\t = {total}\t")
         print()
 
+result = int_check(questions_asked, quiz_list)
 
-    questions_int1 = random.randint(1, 30)
-    questions_int2 = random.randint(1, 30)
-    total = questions_int1 + questions_int2
-print(f" {questions_int1} + {questions_int2} = {total}\t")
+if result == "Wrong":
+    questions_wrong += 1
+    feedback = "😭😭 Wrong! 😭😭"
+else:
+    feedback = "❤️❤️ Correct!!!! ❤️❤️"
 
-print(f" {questions_int1} - {questions_int2} = {total}\t")
+if questions_asked > 0:
+    # Calculate Statistics
+    questions_asked = questions - questions_correct - questions_wrong
+    questions_correct = questions_correct / questions_asked * 100
+    questions_wrong = questions_wrong / questions_asked * 100
+    percent_tied = 100 - questions_correct - questions_wrong
+
+
+round_feedback = f"{user_choice} vs {questions}, {feedback}"
+history_item = f"Round: {questions_asked} - {round_feedback}"
+
+print(round_feedback)
+game_history.append(history_item)
+
+# Output Game Statistics
+print("📊📊📊 Game Statistics 📊📊📊")
+print(f"❤️ Correct: {questions_correct:.2f} \t"
+      f"😭 Wrong: {questions_wrong:.2f} \t")
+
+# initialise list to hold game history
+
+# Game history / Statistics area
+see_history = string_checker("\nDo you want to see your game history? ")
+if see_history == "yes":
+
+    for item in game_history:
+        print(item)
+
 print()
-
-
+print("Thanks for playing.")
