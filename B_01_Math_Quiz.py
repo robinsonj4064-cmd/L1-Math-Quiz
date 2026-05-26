@@ -1,3 +1,5 @@
+import random
+
 print("😝❤️HIIIIIII Welcome to my Amazeing math quiz :p ❤️")
 print()
 
@@ -35,7 +37,33 @@ if want_instructions == "yes":
     instructions()
 
 print()
-print("Program continues")
+
+def int_check(question, easy=None, medium=None, hard=None, diabolical=None, exit_code=None):
+    """Checks users enter on integer more than / equal to 13"""
+
+    while True:
+        error = "Please enter an integer that is 1 or more."
+
+        response = input(question)
+
+        # check for infinite mode
+        if response == "":
+            return ""
+
+        try:
+            response =int(response)
+
+            #check that the number is more than / equal to 13
+            if response < 1:
+                print(error)
+
+            else:
+                return response
+
+        except ValueError:
+            print(error)
+
+
 
 def string_checker(question, valid_ans=('yes', 'no')):
 
@@ -64,60 +92,57 @@ def string_checker(question, valid_ans=('yes', 'no')):
     print(error)
     print()
 
-def int_check(question):
-    """Checks users enter on integer more than / equal to 13"""
-
-    while True:
-        error = "Please enter an integer that is 1 or more."
-
-        response = input(question)
-
-        # check for infinite mode
-        if response == "":
-            return ""
-
-        try:
-            response =int(response)
-
-            #check that the number is more than / equal to 13
-            if response < 1:
-                print(error)
-
-            else:
-                return response
-
-        except ValueError:
-            print(error)
-
 quiz_list = ["easy", "medium", "hard", "diabolical", "xxx"]
 
 user_choice = string_checker("Choose Level: ", quiz_list)
 print("You Choose:", user_choice)
 
+exit_code = "xxx"
 
-
-# Ask user for number of rounds / infinite mode
-num_rounds = int_check("How many rounds would you like? Push <enter> for infinite mode: ")
+# Ask user for number of questions / infinite mode
+num_questions = int_check("How many questions would you like? Push <enter> for infinite mode: ")
 # Initialise game variables
 mode = "regular"
 questions_asked = 0
+questions_wrong = 0
+questions_correct = 0
+questions = 0
+game_history = []
 
 
-if num_rounds == "":
+if num_questions == "":
     mode = "infinite"
-    num_rounds = 5
+    num_questions = 5
 
-
+questions_asked += 1
 # Game loop starts here
-while questions_asked < num_rounds:
-    questions_asked += 1
+while questions_asked < num_questions:
+    num_questions += 1
 
     # Rounds heading
     if mode == "infinite":
-        rounds_heading = f"\n♾️♾️♾️ Round {questions_asked} (Infinite Mode) ♾️♾️♾️"
+        questions_heading = f"\n♾️♾️♾️ Question {questions_asked} (Infinite Mode) ♾️♾️♾️"
     else:
-        rounds_heading = f"\n💿💿💿 Round {questions_asked} of {num_rounds} 💿💿💿"
+        questions_heading = f"\n💿💿💿 Question {questions_asked} of {num_questions} 💿💿💿"
 
-    print(rounds_heading)
+    print(questions_heading)
     print()
 
+    if user_choice == "easy":
+        # The easy questions 1-10
+        questions_int1 = random.randint(1, 10)
+        questions_int2 = random.randint(1, 10)
+        total = questions_int1 + questions_int2
+        print(f" {questions_int1} + {questions_int2} = ")
+        input("What is the answer? ")
+
+    # Medium questions
+    elif user_choice == "medium":
+        questions_int1 = random.randint(1, 30)
+        questions_int2 = random.randint(1, 30)
+        total = questions_int1 + questions_int2
+        print(f" {questions_int1} + {questions_int2} = {total}\t")
+
+    # Exit code
+    if exit_code == "yes":
+        break

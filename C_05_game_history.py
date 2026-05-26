@@ -81,13 +81,20 @@ if num_questions == "":
 while questions_asked < num_questions:
     questions_asked += 1
 
-    if user_choice == quiz_list:
+    if user_choice == "easy":
+        # The easy questions 1-10
         questions_int1 = random.randint(1, 10)
         questions_int2 = random.randint(1, 10)
-
         total = questions_int1 + questions_int2
-        print(f" {questions_int1}\t + {questions_int2}\t = {total}\t")
+        print(f" {questions_int1} + {questions_int2} = {total}\t")
         print()
+
+
+    elif user_choice == "medium":
+        questions_int1 = random.randint(1, 30)
+        questions_int2 = random.randint(1, 30)
+        total = questions_int1 + questions_int2
+        print(f" {questions_int1} + {questions_int2} = {total}\t")
 
 result = int_check(questions_asked, quiz_list)
 

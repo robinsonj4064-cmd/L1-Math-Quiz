@@ -99,12 +99,10 @@ while questions_asked < num_questions:
         print()
 
 
-    questions_int1 = random.randint(1, 30)
-    questions_int2 = random.randint(1, 30)
-    total = questions_int1 + questions_int2
-print(f" {questions_int1} + {questions_int2} = {total}\t")
-
-print(f" {questions_int1} - {questions_int2} = {total}\t")
-print()
+    elif user_choice == "medium":
+        questions_int1 = random.randint(1, 30)
+        questions_int2 = random.randint(1, 30)
+        total = questions_int1 + questions_int2
+        print(f" {questions_int1} + {questions_int2} = {total}\t")
 
 
