@@ -92,7 +92,7 @@ def string_checker(question, valid_ans=('yes', 'no')):
     print(error)
     print()
 
-quiz_list = ["easy", "medium", "hard", "diabolical", "xxx"]
+quiz_list = ["easy", "medium", "hard", "xxx"]
 
 user_choice = string_checker("Choose Level: ", quiz_list)
 print("You Choose:", user_choice)
@@ -101,6 +101,7 @@ exit_code = "xxx"
 
 # Ask user for number of questions / infinite mode
 num_questions = int_check("How many questions would you like? Push <enter> for infinite mode: ")
+
 # Initialise game variables
 mode = "regular"
 questions_asked = 0
@@ -119,6 +120,7 @@ questions_asked += 1
 while questions_asked < num_questions:
     num_questions += 1
 
+    print("mode", mode)
     # Rounds heading
     if mode == "infinite":
         questions_heading = f"\n♾️♾️♾️ Question {questions_asked} (Infinite Mode) ♾️♾️♾️"
@@ -134,14 +136,26 @@ while questions_asked < num_questions:
         questions_int2 = random.randint(1, 10)
         total = questions_int1 + questions_int2
         print(f" {questions_int1} + {questions_int2} = ")
-        input("What is the answer? ")
+        answer =  input("What is the answer? ")
 
     # Medium questions
     elif user_choice == "medium":
         questions_int1 = random.randint(1, 30)
         questions_int2 = random.randint(1, 30)
         total = questions_int1 + questions_int2
-        print(f" {questions_int1} + {questions_int2} = {total}\t")
+        print(f" {questions_int1} + {questions_int2} = ")
+        answer = input("What is the answer? ")
+
+    else:
+        questions_int1 = random.randint(1, 12)
+        questions_int2 = random.randint(1, 12)
+        total = questions_int1 + questions_int2
+        math_expression =(f" {questions_int1} * {questions_int2}  ")
+        math_answer = eval(math_expression)
+        print(math_expression)
+        print(math_answer)
+        answer = input("What is the answer? ")
+
 
     # Exit code
     if exit_code == "yes":
