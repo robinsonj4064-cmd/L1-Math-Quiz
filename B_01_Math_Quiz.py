@@ -115,15 +115,14 @@ if num_questions == "":
     mode = "infinite"
     num_questions = 5
 
-questions_asked += 1
 # Game loop starts here
 while questions_asked < num_questions:
-    num_questions += 1
+    questions_asked += 1
 
-    print("mode", mode)
+
     # Rounds heading
     if mode == "infinite":
-        questions_heading = f"\n♾️♾️♾️ Question {questions_asked} (Infinite Mode) ♾️♾️♾️"
+        questions_heading = f"\n\u221e\u221e\u221e Question {questions_asked} (Infinite Mode) \u221e\u221e\u221e"
     else:
         questions_heading = f"\n💿💿💿 Question {questions_asked} of {num_questions} 💿💿💿"
 
@@ -135,17 +134,24 @@ while questions_asked < num_questions:
         questions_int1 = random.randint(1, 10)
         questions_int2 = random.randint(1, 10)
         total = questions_int1 + questions_int2
-        print(f" {questions_int1} + {questions_int2} = ")
-        answer =  input("What is the answer? ")
+        math_expression = (f" {questions_int1} + {questions_int2}  ")
+        math_answer = eval(math_expression)
+        print(math_expression)
+        answer = input("What is the answer? ")
+
 
     # Medium questions
     elif user_choice == "medium":
         questions_int1 = random.randint(1, 30)
         questions_int2 = random.randint(1, 30)
         total = questions_int1 + questions_int2
-        print(f" {questions_int1} + {questions_int2} = ")
+        math_expression = (f" {questions_int1} + {questions_int2}  ")
+        math_answer = eval(math_expression)
+        print(math_expression)
         answer = input("What is the answer? ")
 
+
+    # Hard Questions
     else:
         questions_int1 = random.randint(1, 12)
         questions_int2 = random.randint(1, 12)
@@ -153,10 +159,54 @@ while questions_asked < num_questions:
         math_expression =(f" {questions_int1} * {questions_int2}  ")
         math_answer = eval(math_expression)
         print(math_expression)
-        print(math_answer)
         answer = input("What is the answer? ")
 
+    # Infinite mode questions increasing
+    if mode == "infinite":
+        num_questions += 1
 
     # Exit code
-    if exit_code == "yes":
+    if answer == exit_code:
+        questions_asked -= 1
         break
+
+
+    # Check if the user's answer matches the math answer
+    try:
+        if int(answer) == math_answer:
+            feedback = f"Correct! Great job! {math_answer} was the right answer. "
+            print(feedback)
+            questions_correct += 1
+        else:
+            feedback = f"Incorrect. The correct answer was {math_answer}. Better luck next time!"
+            print(feedback)
+            questions_wrong += 1
+    except ValueError:
+        feedback = f"That wasn't a valid number! Counted as incorrect. The right answer was {math_answer}."
+        print(feedback)
+        questions_wrong += 1
+
+    history_item = f"Round {questions_asked}: {math_expression.strip()} = {answer} | {feedback}"
+    game_history.append(history_item)
+
+if questions_asked > 0:
+    # Calculate Statistics
+    questions_correct_pct = (questions_correct / questions_asked) * 100
+    questions_wrong_pct = (questions_wrong / questions_asked) * 100
+
+    # Output Game Statistics
+    print("\n📊📊📊 Game Statistics 📊📊📊")
+    print(f"❤️ Correct: {questions_correct} ({questions_correct_pct:.1f}%) \t"
+          f"😭 Wrong: {questions_wrong} ({questions_wrong_pct:.1f}%) \t")
+
+    # Game history / Statistics area
+    see_history = string_checker("\nDo you want to see your game history? ")
+    if see_history == "yes":
+        print("\n--- Game History ---")
+        for item in game_history:
+            print(item)
+else:
+    print("\nNo questions were completed.")
+
+print()
+print("Thanks for playing.")
